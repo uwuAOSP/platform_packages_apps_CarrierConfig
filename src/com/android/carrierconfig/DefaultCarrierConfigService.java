@@ -177,6 +177,16 @@ public class DefaultCarrierConfigService extends CarrierService {
             config = new PersistableBundle();
         }
 
+        XmlPullParser romDefaultsInput =
+                getApplicationContext().getResources().getXml(R.xml.rom_defaults);
+        try {
+            PersistableBundle romDefaults = readConfigFromXml(romDefaultsInput, id, sku);
+            config.putAll(romDefaults);
+        }
+        catch (IOException | XmlPullParserException e) {
+            Log.e(TAG, e.toString());
+        }
+
         // Treat vendor.xml as if it were appended to the carrier config file we read.
         XmlPullParser vendorInput = getApplicationContext().getResources().getXml(R.xml.vendor);
         try {
