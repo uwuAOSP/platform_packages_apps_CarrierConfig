@@ -276,12 +276,12 @@ public class CarrierConfigTest extends InstrumentationTestCase {
                     throw new AssertionError("Problem in " + fileName + ": " + e.getMessage(), e);
                 }
             }
-            // Check vendor.xml too
             try {
                 Resources res = getInstrumentation().getTargetContext().getResources();
+                checker.check(res.getXml(R.xml.rom_defaults), mccmnc);
                 checker.check(res.getXml(R.xml.vendor), mccmnc);
             } catch (Throwable e) {
-                throw new AssertionError("Problem in vendor.xml: " + e.getMessage(), e);
+                throw new AssertionError("Problem in resource config XML: " + e.getMessage(), e);
             }
         } catch (IOException e) {
             fail(e.toString());
